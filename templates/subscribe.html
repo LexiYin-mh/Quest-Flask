@@ -1,0 +1,39 @@
+<!-- templates/index.html -->
+
+{% extends "base.html" %}
+
+{% block title %} Stripe Example {% endblock %}
+
+{% block head %}
+    <script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
+
+{% block body %}
+    <button id="checkout-button">Subscribe</button>
+
+    <script>
+    var stripe = Stripe("your-stripe-publishable-key");
+
+    var checkoutButton = document.getElementById("checkout-button");
+    checkoutButton.addEventListener("click", function () {
+        fetch("/create-checkout-session", {
+            method: "POST",
+        })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (session) {
+            return stripe.redirectToCheckout({ sessionId: session.id });
+        })
+        .then(function (result) {
+            if (result.error) {
+                alert(result.error.message);
+            }
+        })
+        .catch(function (error) {
+            console.error("Error:", error);
+        });
+    });
+    </script>
+
+{% endblock %}

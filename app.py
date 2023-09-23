@@ -1,14 +1,25 @@
-from flask import Flask, session, g
+from flask import Flask, session, g, redirect, request, jsonify, render_template, url_for
+import stripe
 import config
 from exts import db, mail, cache
 from models import UserModel
 from blueprints.qa import bp as qa_bp
 from blueprints.auth import bp as auth_bp
+from blueprints.pay import bp as stripe_bp
 from flask_migrate import Migrate
 from sqlalchemy import text
 
 
 app = Flask(__name__)
+
+#! /usr/bin/env python3.6
+
+"""
+server.py
+Stripe Sample.
+Python 3.6 or newer required.
+"""
+
 # bonding with configuration file
 app.config.from_object(config)
 
@@ -33,6 +44,7 @@ migrate = Migrate(app, db)
 ############### Email Service #################
 mail.init_app(app)
 
+
 ############## Cache Service #############
 cache.init_app(app)
 
@@ -41,6 +53,7 @@ cache.init_app(app)
 
 app.register_blueprint(qa_bp)
 app.register_blueprint(auth_bp)
+app.register_blueprint(stripe_bp)
 
 # before_request / before_first_request/ after_request   （hook function）
 @app.before_request
@@ -57,5 +70,10 @@ def my_context_processor():
     return {"user": g.user}
 # Define application context process to simplify your code
 
+# Stripe keys
+stripe_public_key = config.stripe_public_key
+stripe_secret_key = config.stripe_secret_key
+
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

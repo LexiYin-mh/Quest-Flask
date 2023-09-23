@@ -36,3 +36,10 @@ CACHE_TYPE = "RedisCache"
 CACHE_REDIS_HOST = "127.0.0.1"
 CACHE_REDIS_PORT = 6379
 # CACHE_DEFAULT_TIMEOUT = xxx  # 默认是300s
+
+
+#### Stripe #######
+stripe_public_key = \
+    "pk_test_51Nss3UHu9vSfraaGHx9pV5lt7VmyqL48xQL6HAkWllKe341iG0CEv2Yf43h2HfIRijqZG57nKXJiADn76jrEorLY00gTnGrwva";
+stripe_secret_key = \
+    "sk_test_51Nss3UHu9vSfraaGivBZn9wJefTSFIDRWTNYEUf99QmZVpQH09BwHjLvh3YhzGPTh6DukKFEEAqUY00xhUL72R7N00vDG5c6iM";

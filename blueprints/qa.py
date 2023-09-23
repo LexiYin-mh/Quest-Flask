@@ -10,7 +10,9 @@ bp = Blueprint("qa", __name__)  #不加prefix为了能访问首页， 如果要�
 # http://127.0.0.1:5000
 @bp.route("/")
 def index():
-    return render_template("login.html")
+    return render_template("index.html")
+
+# @bp.route("/base")
 
 @bp.route("/qa/publicize", methods = ['GET', 'POST'])
 @login_required

@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block title %} Quest: Post Your Ideas {% endblock
+%} {% block head %} {% endblock %} {% block body %}
+
+<div class="jumbotron">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h2>Welcome to our Donation Page</h2>
+      <p>
+        {# THIS IS A TEST KEY. TO FIND YOUR OWN KEY, LOG IN TO YOUR STRIPE
+        ACCOUNT, THEN GO TO: https://stripe.com/docs/quickstart #}
+      </p>
+    </div>
+    <div class="card-body">
+      <h4 class="card-title">Would you like to donate to our Quest Forum?</h4>
+      <p class="card-text">
+        To support our cause, please provide the donation details below.
+      </p>
+    </div>
+  </div>
+
+  <!-- 这是一个HTML表单，当提交时，它会POST数据到由url_for('payment')返回的URL。 -->
+  <form action="{{url_for('stripe.payment')}}" method="POST">
+    <div class="form-group">
+      <label for="donationAmount">Donation Amount ($19.9): </label>
+    </div>
+
+    <!-- 这是一个Stripe按钮，它会触发一个弹出式Stripe支付窗口。 -->
+    <script
+      src="https://checkout.stripe.com/checkout.js"
+      class="stripe-button"
+      data-key="{{public_key}}"
+      data-amount="1999"
+      data-name="Support Quest Forum"
+      data-description="Donation"
+      data-image="https://images.unsplash.com/photo-1514984879728-be0aff75a6e8?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=35dcb9bb6f3e097541dd732a99c44766&auto=format&fit=crop&w=1576&q=80"
+      data-locale="auto"
+      data-zip-code="true"
+    ></script>
+  </form>
+</div>
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+  integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+  integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+  crossorigin="anonymous"
+></script>
+{% endblock %}
